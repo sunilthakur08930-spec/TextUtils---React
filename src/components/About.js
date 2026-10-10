@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function About(props) {
-
   let myStyle = {
     color: props.mode === 'dark' ? 'white' : '#042743',
     backgroundColor: props.mode === 'dark' ? 'rgb(36 74 104)' : 'white'
@@ -27,7 +26,6 @@ export default function About(props) {
               Accordion Item #1
             </button>
           </h2>
-          
           <div 
             id="collapseOne" 
             className="accordion-collapse collapse show" 
@@ -35,7 +33,9 @@ export default function About(props) {
             <div className="accordion-body" style={myStyle}>
               <strong>This is the first item's accordion body.</strong> It is 
               shown by default, until the collapse plugin adds the appropriate 
-              classes that we use to style each element.
+              classes that we use to style each element. These classes control 
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions.
             </div>
           </div>
         </div>
@@ -54,7 +54,6 @@ export default function About(props) {
               Accordion Item #2
             </button>
           </h2>
-          
           <div 
             id="collapseTwo" 
             className="accordion-collapse collapse" 
@@ -62,7 +61,9 @@ export default function About(props) {
             <div className="accordion-body" style={myStyle}>
               <strong>This is the second item's accordion body.</strong> It is 
               hidden by default, until the collapse plugin adds the appropriate 
-              classes that we use to style each element.
+              classes that we use to style each element. These classes control 
+              the overall appearance, as well as the showing and hiding via CSS 
+              transitions.
             </div>
           </div>
         </div>
@@ -81,7 +82,6 @@ export default function About(props) {
               Accordion Item #3
             </button>
           </h2>
-          
           <div 
             id="collapseThree" 
             className="accordion-collapse collapse" 
@@ -89,7 +89,8 @@ export default function About(props) {
             <div className="accordion-body" style={myStyle}>
               <strong>This is the third item's accordion body.</strong> It is 
               hidden by default, until the collapse plugin adds the appropriate 
-              classes that we use to style each element.
+              classes that we use to style each element. You can modify any of 
+              this with custom CSS or overriding our default variables.
             </div>
           </div>
         </div>

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
+import About from './components/About';
 import Alert from './components/Alert';
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route
-// } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -17,7 +18,6 @@ function App() {
       msg: message,
       type: type
     });
-    // Harry bhai's logic: 1.5 second baad alert apne aap hatne ke liye
     setTimeout(() => {
       setAlert(null);
     }, 4000);
@@ -26,22 +26,22 @@ function App() {
   const toggleMode = (cls) => {
     if (cls === 'danger') {
       document.body.style.backgroundColor = '#ff0217db';
-      showAlert("Red mode has been enabled", "danger")
+      showAlert("Red mode has been enabled", "danger");
       return;
     } 
     else if (cls === 'success') {
       document.body.style.backgroundColor = '#2fff00f1';
-      showAlert("Green mode has been enabled", "success")
+      showAlert("Green mode has been enabled", "success");
       return;
     } 
     else if (cls === 'primary') {
       document.body.style.backgroundColor = '#0000ffeb';
-      showAlert("Blue mode has been enabled", "primary")
+      showAlert("Blue mode has been enabled", "primary");
       return;
     } 
     else if (cls === 'warning') {
       document.body.style.backgroundColor = 'rgba(251, 255, 0, 0.94)';
-      showAlert("Yellow mode has been enabled", "warning")
+      showAlert("Yellow mode has been enabled", "warning");
       return;
     }
     if (mode === 'light') {
@@ -54,41 +54,34 @@ function App() {
       document.body.style.backgroundColor = 'white';
       showAlert("Light mode has been enabled", "success");
       document.title = 'TextUtils - Light Mode';
-      // setInterval(() => {
-      //   document.title = 'TextUtils is Amazing Mode';
-      // }, 3000);
-      // setInterval(() => {
-      //   document.title = 'Install TextUtils Now';
-      // }, 2500);
     }
   };
 
   return (
-    <>
-    {/* <Navbar/ > */}
-      {/* <Router> */}
+    <Router>
       <Navbar 
         title="TextUtils" 
+        aboutText="About"
         mode={mode} 
         toggleMode={toggleMode} 
       />
       <Alert alert={alert} />
       <div className="container my-3">
-        {/* <Routes> */}
-          {/* /users --> Component 1 */}
-          {/* /users/home --> Component 2 */}
-          {/* <Route */}
-            {/* path="/" */}
-            {/* element={ */}
+        <Routes>
+          <Route exact path="/about" element={<About mode={mode} />} />
+          <Route
+            path="/"
+            element={
               <TextForm
                 showAlert={showAlert}
                 heading="Enter the text to analyze below"
-                mode={mode}/>
-            {/* }/> */}
-        {/* </Routes> */}
+                mode={mode}
+              />
+            }
+          />
+        </Routes>
       </div>
-    {/* </Router> */}
-    </>
+    </Router>
   );
 }
 
