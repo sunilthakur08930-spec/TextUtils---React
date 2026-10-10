@@ -59,13 +59,13 @@ export default function TextForm(props) {
       <div 
         className="container" 
         style={{ color: props.mode === 'dark' ? 'white' : '#042743' }}>
-        <h1>{props.heading}</h1>
+        <h1 className='mb-4'>{props.heading}</h1>
         
         <div className="mb-3 position-relative">
           <textarea 
             className="form-control" 
             value={text} 
-            onChange={handleOnChange} 
+            onChange={handleOnChange}
             style={{
               backgroundColor: 'white', 
               color: 'black'
@@ -147,7 +147,7 @@ export default function TextForm(props) {
         <p>
           {text.length > 0 
             ? text 
-            : "Enter something in the textbox above to preview it here"}
+            : "Nothing to preview!"}
         </p>
       </div>
     </>
