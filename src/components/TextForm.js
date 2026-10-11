@@ -16,19 +16,18 @@ export default function TextForm(props) {
   };
 
   const handleClearClick = () => {
-    let newText = '';
-    setText(newText);
+    setText('');
     props.showAlert("Text cleared!", "success");
   };
 
   const handleCopy = () => {
-    props.showAlert("Text copied to clipboard!", "success");
     navigator.clipboard.writeText(text);
+    props.showAlert("Text copied to clipboard!", "success");
   };
 
   const handleExtraSpaces = () => {
-    let newText = text.split(/[ ]+/);
-    setText(newText.join(" "));
+    let newText = text.split(/[ ]+/).join(" ");
+    setText(newText.trim());
     props.showAlert("Extra spaces removed!", "success");
   };
 
@@ -42,9 +41,7 @@ export default function TextForm(props) {
   const handleCapitalize = () => {
     let newText = text
       .split(" ")
-      .map(el => {
-        return el.charAt(0).toUpperCase() + el.slice(1).toLowerCase();
-      })
+      .map(el => el.charAt(0).toUpperCase() + el.slice(1).toLowerCase())
       .join(" ");
     setText(newText);
     props.showAlert("Words capitalized!", "success");
@@ -54,21 +51,23 @@ export default function TextForm(props) {
     setText(event.target.value);
   };
 
+  // Clean word count logic
+  const wordCount = text.split(/\s+/).filter((element) => element.length !== 0).length;
+
   return (
     <>
-      <div 
-        className="container" 
-        style={{ color: props.mode === 'dark' ? 'white' : '#042743' }}>
-        <h1 className='mb-4'>{props.heading}</h1>
+      <div className="container">
+        <h2 className="mb-3 fw-bold">{props.heading}</h2>
         
         <div className="mb-3 position-relative">
           <textarea 
-            className="form-control" 
+            className="form-control shadow-sm" 
             value={text} 
             onChange={handleOnChange}
             style={{
-              backgroundColor: 'white', 
-              color: 'black'
+              backgroundColor: props.mode === 'dark' ? '#1e1e1e' : '#ffffff', 
+              color: props.mode === 'dark' ? '#ffffff' : '#000000',
+              borderColor: props.mode === 'dark' ? '#333333' : '#ced4da'
             }}
             id="myBox" 
             rows="8" 
@@ -84,71 +83,21 @@ export default function TextForm(props) {
           </button>
         </div>
 
-        <button 
-          className="btn btn-info mx-1 my-1" 
-          disabled={text.length === 0}
-          onClick={handleUpClick}>
-          Convert to Uppercase
-        </button>
-        
-        <button 
-          className="btn btn-warning mx-1 my-1" 
-          disabled={text.length === 0}
-          onClick={handleLoClick}>
-          Convert to Lowercase
-        </button>
-        
-        <button 
-          className="btn btn-danger mx-1 my-1" 
-          disabled={text.length === 0}
-          onClick={handleClearClick}>
-          Clear Text
-        </button>
-        
-        <button 
-          className="btn btn-primary mx-1 my-1" 
-          disabled={text.length === 0}
-          onClick={handleExtraSpaces}>
-          Remove Extra Spaces
-        </button>
-        
-        <button 
-          className="btn btn-success mx-1 my-1" 
-          disabled={text.length === 0}
-          onClick={handleSpeak}>
-          🔊 Read Text
-        </button>
-        
-        <button 
-          className="btn btn-dark mx-1 my-1" 
-          disabled={text.length === 0}
-          onClick={handleCapitalize}>
-          Capitalize Words
-        </button>
+        <button className="btn btn-primary mx-1 my-1" disabled={text.length === 0} onClick={handleUpClick}>Convert to Uppercase</button>
+        <button className="btn btn-primary mx-1 my-1" disabled={text.length === 0} onClick={handleLoClick}>Convert to Lowercase</button>
+        <button className="btn btn-danger mx-1 my-1" disabled={text.length === 0} onClick={handleClearClick}>Clear Text</button>
+        <button className="btn btn-primary mx-1 my-1" disabled={text.length === 0} onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+        <button className="btn btn-success mx-1 my-1" disabled={text.length === 0} onClick={handleSpeak}>🔊 Read Text</button>
+        <button className="btn btn-dark mx-1 my-1" disabled={text.length === 0} onClick={handleCapitalize}>Capitalize Words</button>
       </div>
 
-      <div 
-        className="container my-3" 
-        style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
-        <h2>Your text summary</h2>
-        <p>
-          {text.split(" ").filter((element) => {
-            return element.length !== 0;
-          }).length} words and {text.length} characters
-        </p>
+      <div className="container my-4">
+        <h3 className="fw-bold">Your text summary</h3>
+        <p className="fs-5">{wordCount} words and {text.length} characters</p>
+        <p>{(0.008 * wordCount).toFixed(2)} Minutes read</p>
         
-        <p>
-          {0.008 * text.split(" ").filter((element) => {
-            return element.length !== 0;
-          }).length} Minutes read
-        </p>
-        
-        <h2>Preview</h2>
-        <p>
-          {text.length > 0 
-            ? text 
-            : "Nothing to preview!"}
-        </p>
+        <h3 className="fw-bold mt-4">Preview</h3>
+        <p className="fs-6">{text.length > 0 ? text : "Nothing to preview!"}</p>
       </div>
     </>
   );

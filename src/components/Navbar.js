@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar(props) {
   return (
-    <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
+    <nav className={`navbar navbar-expand-lg navbar-${props.mode === 'dark' ? 'dark' : 'light'} bg-${props.mode === 'dark' ? 'dark' : 'light'} border-bottom shadow-sm`}>
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand fw-bold" to="/">
           {props.title}
         </Link>
         
@@ -36,23 +36,23 @@ export default function Navbar(props) {
             </li>
           </ul>
           
-          <button type="button" className="btn btn-outline-danger mx-1 my-1" onClick={() => props.toggleMode('danger')}>Red Mode</button>
-          <button type="button" className="btn btn-outline-success mx-1 my-1" onClick={() => props.toggleMode('success')}>Green Mode</button>
-          <button type="button" className="btn btn-outline-primary mx-1 my-1" onClick={() => props.toggleMode('primary')}>Blue Mode</button>
-          <button type="button" className="btn btn-outline-warning mx-1 my-1" onClick={() => props.toggleMode('warning')}>Yellow Mode</button>
-
-          <div className={`form-check form-switch text-${props.mode === 'light' ? 'dark' : 'light'}`}>
-            <input 
-              className="form-check-input" 
-              onChange={() => props.toggleMode()} 
-              type="checkbox" 
-              id="flexSwitchCheckDefault" 
-              checked={props.mode === 'dark'}
-            />
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
-              Enable Dark Mode
-            </label>
+          {/* Color Palettes with Names */}
+          <div className="d-flex align-items-center me-3 flex-wrap">
+            <button type="button" className="btn btn-sm btn-outline-danger mx-1 my-1" onClick={() => props.toggleMode('danger')}>Red Mode</button>
+            <button type="button" className="btn btn-sm btn-outline-success mx-1 my-1" onClick={() => props.toggleMode('success')}>Green Mode</button>
+            <button type="button" className="btn btn-sm btn-outline-primary mx-1 my-1" onClick={() => props.toggleMode('primary')}>Blue Mode</button>
+            <button type="button" className="btn btn-sm btn-outline-warning mx-1 my-1" onClick={() => props.toggleMode('warning')}>Yellow Mode</button>
           </div>
+
+          {/* Single Simple Light/Dark Button */}
+          <button 
+            type="button" 
+            className={`btn btn-sm ${props.mode === 'light' ? 'btn-dark' : 'btn-light'} mx-1 my-1 fw-bold`} 
+            onClick={() => props.toggleMode()}
+          >
+            {props.mode === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+          </button>
+
         </div>
       </div>
     </nav>
